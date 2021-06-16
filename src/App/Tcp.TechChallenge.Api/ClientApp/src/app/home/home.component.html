@@ -1,0 +1,23 @@
+<h1 id="tableLabel">Conteiners</h1>
+<p>Lista de conteineres cadastrados</p>
+
+<a style="float: right; padding: 0 12px 12px;" class="nav-link" [routerLink]="['/new']">Inserir novo</a>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="conteiners">
+  <thead>
+    <tr>
+      <th>Identificacao</th>
+      <th style="text-align: center">Capacidade</th>
+      <th style="text-align: center">Tipo Operacao</th>
+      <th style="text-align: center" colspan="2">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let conteiner of conteiners">
+      <td>{{ conteiner.numero }}</td>
+      <td style="text-align: center">{{ conteiner.capacidade }}</td>
+      <td style="text-align: center">{{ toMessageType(conteiner.tipoOperacao) }}</td>
+      <td style="text-align: right">Editar</td>
+      <td>Excluir</td>
+    </tr>
+  </tbody>
+</table>
