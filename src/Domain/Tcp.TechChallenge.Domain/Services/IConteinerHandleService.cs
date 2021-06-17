@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Tcp.TechChallenge.Domain.Models;
-
-namespace Tcp.TechChallenge.Domain.Services
+﻿namespace Tcp.TechChallenge.Domain.Services
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Tcp.TechChallenge.Domain.Models;
+
     public interface IConteinerHandleService
     {
-        Conteiner FindByIdentifier(string conteinerIdentifier);
+        ObjectResponse<ConteinerRequest> FindByIdentifier(string conteinerIdentifier);
+        IList<ConteinerRequest> FindAll();
 
-        Task Insert(Conteiner conteiner);
-        Task<Conteiner> Edit(string conteinerIdentifier, Conteiner conteiner);
-        Task<bool> Delete(string conteinerIdentifier);
-        IList<Conteiner> List();
+        Task<ObjectResponse<int>> Insert(ConteinerRequest conteiner);
+        Task<ObjectResponse<bool>> Edit(string conteinerIdentifier, ConteinerRequest conteiner);
+        Task<ObjectResponse<bool>> Delete(string conteinerIdentifier);
     }
 }

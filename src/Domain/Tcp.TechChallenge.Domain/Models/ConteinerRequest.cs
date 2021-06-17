@@ -2,7 +2,7 @@
 
 namespace Tcp.TechChallenge.Domain.Models
 {
-    public class Conteiner
+    public class ConteinerRequest
     {
         public string Numero { get; set; }
 
