@@ -5,6 +5,7 @@ using Tcp.TechChallenge.Domain.Conversion.Support;
 using Tcp.TechChallenge.Domain.Models;
 using Tcp.TechChallenge.Domain.Validations;
 using Tcp.TechChallenge.Domain.Validations.Support;
+using Tcp.TechChallenge.Infra.Models;
 using Tcp.TechChallenge.Infra.Repositories;
 
 namespace Tcp.TechChallenge.Domain.Services.Impl
@@ -28,7 +29,8 @@ namespace Tcp.TechChallenge.Domain.Services.Impl
         public IList<ConteinerRequest> FindAll()
         {
             var result = _conteinerRepository.FindAll();
-            _converterService.Convert(result, out IList<ConteinerRequest> results);
+            IList<ConteinerRequest> results = _converterService
+                .Convert<IList<Conteiner>, IList <ConteinerRequest>>(result);
             return results;
         }
 
@@ -40,7 +42,7 @@ namespace Tcp.TechChallenge.Domain.Services.Impl
                 return ObjectResponse<ConteinerRequest>.FailWithError("Conteiner não encontrado");
             }
 
-            _converterService.Convert(response, out ConteinerRequest result);
+            _converterService.TryConvert(response, out ConteinerRequest result);
             return ObjectResponse<ConteinerRequest>.Success(result);
         }
         
@@ -53,7 +55,7 @@ namespace Tcp.TechChallenge.Domain.Services.Impl
                 if (_conteinerRepository.FindById(conteiner.Number) != null)
                     return ObjectResponse<int>.FailWithError("Conteiner já existe");
 
-                _converterService.Convert(conteiner, out Infra.Models.Conteiner conteinerParams);
+                _converterService.TryConvert(conteiner, out Infra.Models.Conteiner conteinerParams);
                 await _conteinerRepository.Save(conteinerParams);
                 return ObjectResponse<int>.Success();
             }
@@ -71,7 +73,7 @@ namespace Tcp.TechChallenge.Domain.Services.Impl
                     if (conteiner.Number != conteinerIdentifier)
                         return ObjectResponse<bool>.FailWithError("Conteiner nao encontrado");
 
-                    _converterService.Convert(conteiner, out Infra.Models.Conteiner conteinerParams);
+                    _converterService.TryConvert(conteiner, out Infra.Models.Conteiner conteinerParams);
                     await _conteinerRepository.Edit(conteinerParams);
                     return ObjectResponse<bool>.Success();
                 }
@@ -89,6 +91,9 @@ namespace Tcp.TechChallenge.Domain.Services.Impl
             try
             {
                 var result = await _conteinerRepository.Delete(conteinerIdentifier);
+                if (!result)
+                    return ObjectResponse<bool>.FailWithError("Conteiner nao pode ser excluido");
+                        
                 return ObjectResponse<bool>.Success(result);
             }
             catch

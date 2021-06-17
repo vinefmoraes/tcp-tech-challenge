@@ -2,7 +2,11 @@
 {
     public interface IConverterService
     {
-        public void Convert<T, TResponse>(T request, out TResponse response)
+        public void TryConvert<T, TResponse>(T request, out TResponse response)
+            where T : class
+            where TResponse : class;
+
+        public TResponse Convert<T, TResponse>(T request)
             where T : class
             where TResponse : class;
     }
