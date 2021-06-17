@@ -1,11 +1,11 @@
-<h1>Inserir Conteiner</h1>
+<h1>Editar Conteiner</h1>
 
 
-<form [formGroup]="form" (ngSubmit)="sendForm()" class="form-horizontal">
+<form [formGroup]="form" *ngIf="form" (ngSubmit)="sendForm()" class="form-horizontal">
     <div class="form-outline">
         <label class="form-label" for="typeText">Número</label>
         <input type="text" class="form-control" formControlName="number"/>
-        <div *ngIf="submitted && number.errors">
+        <div *ngIf="number.errors">
             <p *ngIf="number.errors.required" style="color:red">
                 Numero é obrigatorio
             </p>
@@ -21,7 +21,7 @@
             <option [ngValue]="null">Selecione a operação</option>
             <option *ngFor="let operation of operationsType()" [ngValue]="operation">{{ typeToMessage(operation) }}</option>
         </select>
-        <div *ngIf="submitted && operation.errors">
+        <div *ngIf="operation.errors">
             <p *ngIf="operation.errors.required" style="color:red">
                 Operação é obrigatoria
             </p>
@@ -33,7 +33,7 @@
             <option [ngValue]="null">Selecione a operação</option>
             <option *ngFor="let capacity of capacities()" [ngValue]="capacity">{{ capacity }}</option>
         </select>
-        <div *ngIf="submitted && capacity.errors">
+        <div *ngIf="capacity.errors">
             <p *ngIf="capacity.errors.required" style="color:red">
                 Capacidade é obrigatoria
             </p>
@@ -41,6 +41,7 @@
     </div>
     <div class="float-right pr-2 pt-3">
         <button class="btn btn-primary"  
+            [disabled]="form.invalid"
             type="submit">Salvar</button>
     </div>
 </form>

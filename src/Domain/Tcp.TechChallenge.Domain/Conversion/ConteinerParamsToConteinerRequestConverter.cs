@@ -13,9 +13,9 @@
         {
             return new ConteinerRequest
             {
-                Capacidade = (Capacidade)Enum.ToObject(typeof(Capacidade), request.Capacidade),
-                TipoOperacao = (TipoOperacao)Enum.ToObject(typeof(TipoOperacao), request.TipoOperacao),
-                Numero = request.Numero
+                Capacity = (Capacidade)Enum.ToObject(typeof(Capacidade), request.Capacidade),
+                Operation = (TipoOperacao)Enum.ToObject(typeof(TipoOperacao), request.TipoOperacao),
+                Number = request.Numero
             };
         }
     }

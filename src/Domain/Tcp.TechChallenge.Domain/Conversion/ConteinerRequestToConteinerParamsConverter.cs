@@ -9,9 +9,9 @@
         public Infra.Models.Conteiner Convert(ConteinerRequest request)
         {
             return new Infra.Models.Conteiner{
-                Numero = request.Numero,
-                Capacidade = (short)request.Capacidade,
-                TipoOperacao = (short)request.TipoOperacao
+                Numero = request.Number,
+                Capacidade = (short)request.Capacity,
+                TipoOperacao = (short)request.Operation
             };
         }
     }

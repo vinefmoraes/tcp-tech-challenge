@@ -7,18 +7,19 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ConteinerService } from './modules/conteiner/services/conteiner.service';
 import { ConteinerApi } from './modules/conteiner/api/conteiner.api';
 import { CreateConteinerComponent } from './create/create.component';
+import { EditConteinerComponent } from './edit/edit.component';
+import { HttpInterceptorProviders } from './shared/interceptors/http-interceptor.providers';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    FetchDataComponent,
-    CreateConteinerComponent
+    CreateConteinerComponent,
+    EditConteinerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,11 +28,12 @@ import { CreateConteinerComponent } from './create/create.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'edit', component: FetchDataComponent },
+      { path: 'edit/:number', component: EditConteinerComponent },
       { path: 'new', component: CreateConteinerComponent }
     ])
   ],
   providers: [
+    HttpInterceptorProviders,
     ConteinerService,
     ConteinerApi
   ],

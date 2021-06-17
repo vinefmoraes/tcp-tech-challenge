@@ -44,7 +44,7 @@
            [FromServices] IConteinerHandleService conteinerHandleService,
            [FromBody] ConteinerRequest conteiner)
         {
-            var (success, result, errors) = await conteinerHandleService.Insert(conteiner);
+            var (success, _, errors) = await conteinerHandleService.Insert(conteiner);
             if (!success)
                 return BadRequest(errors);
 

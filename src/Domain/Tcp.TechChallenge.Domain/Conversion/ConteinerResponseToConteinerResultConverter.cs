@@ -16,9 +16,9 @@ namespace Tcp.TechChallenge.Domain.Conversion
         {
             return request.Select(c => new ConteinerRequest
             {
-                Capacidade = (Capacidade)Enum.ToObject(typeof(Capacidade), c.Capacidade),
-                TipoOperacao = (TipoOperacao)Enum.ToObject(typeof(TipoOperacao), c.TipoOperacao),
-                Numero = c.Numero
+                Capacity = (Capacidade)Enum.ToObject(typeof(Capacidade), c.Capacidade),
+                Operation = (TipoOperacao)Enum.ToObject(typeof(TipoOperacao), c.TipoOperacao),
+                Number = c.Numero
             }).ToList();
         }
     }

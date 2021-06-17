@@ -4,10 +4,8 @@ namespace Tcp.TechChallenge.Domain.Models
 {
     public class ConteinerRequest
     {
-        public string Numero { get; set; }
-
-        public TipoOperacao TipoOperacao { get; set; }
-
-        public Capacidade Capacidade { get; set; }
+        public string? Number { get; set; }
+        public TipoOperacao? Operation { get; set; }
+        public Capacidade? Capacity { get; set; }
     }
 }

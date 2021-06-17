@@ -24,7 +24,7 @@ export class ConteinerApi {
     }
 
     public findConteinerByIdentifier(identifier:string) {
-        return this.http.get<Conteiner[]>(StringExtensions.format(ApiOperations.Conteiner.FindById, [identifier]));
+        return this.http.get<Conteiner>(StringExtensions.format(ApiOperations.Conteiner.FindById, [identifier]));
     }
 
     public findAllConteiners() {

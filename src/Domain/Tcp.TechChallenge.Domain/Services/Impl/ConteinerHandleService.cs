@@ -50,7 +50,7 @@ namespace Tcp.TechChallenge.Domain.Services.Impl
             var validationResult = _validationService.Validate(conteiner);
             if (validationResult.IsValid)
             {
-                if (_conteinerRepository.FindById(conteiner.Numero) != null)
+                if (_conteinerRepository.FindById(conteiner.Number) != null)
                     return ObjectResponse<int>.FailWithError("Conteiner já existe");
 
                 _converterService.Convert(conteiner, out Infra.Models.Conteiner conteinerParams);
@@ -65,12 +65,18 @@ namespace Tcp.TechChallenge.Domain.Services.Impl
         {
             try
             {
-                if (conteiner.Numero != conteinerIdentifier)
-                    return ObjectResponse<bool>.FailWithError("Conteiner nao encontrado");
+                var validationResult = _validationService.Validate(conteiner);
+                if (validationResult.IsValid)
+                {
+                    if (conteiner.Number != conteinerIdentifier)
+                        return ObjectResponse<bool>.FailWithError("Conteiner nao encontrado");
 
-                _converterService.Convert(conteiner, out Infra.Models.Conteiner conteinerParams);
-                await _conteinerRepository.Edit(conteinerParams);
-                return ObjectResponse<bool>.Success();
+                    _converterService.Convert(conteiner, out Infra.Models.Conteiner conteinerParams);
+                    await _conteinerRepository.Edit(conteinerParams);
+                    return ObjectResponse<bool>.Success();
+                }
+
+                return ObjectResponse<bool>.Fail(validationResult.Errors);
             } catch
             {
                 return ObjectResponse<bool>.InternalError();
